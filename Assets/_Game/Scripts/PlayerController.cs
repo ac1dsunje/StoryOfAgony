@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using _Game.Scripts.Items;
+using _Game.Scripts.Items.Box;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.TryGetComponent<BreakableItem>(out var breakableItem)) return;
+        if (!collision.TryGetComponent<BoxItem>(out var breakableItem)) return;
         
         foreach (var item in breakableItem.GetItems())
         {

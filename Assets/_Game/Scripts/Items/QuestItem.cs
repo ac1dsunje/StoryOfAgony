@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace _Game.Scripts
+namespace _Game.Scripts.Items
 {
-[CreateAssetMenu(menuName = "Configs/Game/Objects/QuestItem")]
+[CreateAssetMenu(fileName = "QuestItem", menuName = "Configs/Game/Objects/QuestItem")]
 public class QuestItem: ScriptableObject
 {
     [field: SerializeField] public string Name { get; private set; }

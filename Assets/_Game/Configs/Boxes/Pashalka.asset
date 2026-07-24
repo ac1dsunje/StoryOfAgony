@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b159fd53bb74f4d8d17c07784931533, type: 3}
+  m_Name: Pashalka
+  m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Items.Box.BoxItemConfig
+  <Sprite>k__BackingField: {fileID: -7449415799620905647, guid: ab7f1841cd4a5d8478a5efb920a6c7d7, type: 3}
+  <QuestItem>k__BackingField: {fileID: 11400000, guid: a9c6aa19893376c4f8cef2fad76fe6c0, type: 2}
+  <Amount>k__BackingField: 3

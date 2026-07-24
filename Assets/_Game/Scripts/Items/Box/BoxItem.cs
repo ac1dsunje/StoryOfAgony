@@ -2,30 +2,27 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Game.Scripts
+namespace _Game.Scripts.Items.Box
 {
-public class BreakableItem : MonoBehaviour
+public class BoxItem : MonoBehaviour
 {
-    [SerializeField] private Sprite _sprite;
-    
-    [SerializeField] private QuestItem _object;
-    [SerializeField] private int _amount;
-    
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    private BoxItemConfig _config;
 
-    private void Awake()
+    public void Construct (BoxItemConfig config)
     {
-        _spriteRenderer.sprite = _sprite;
+        _config = config;
+        _spriteRenderer.sprite = _config.Sprite;
     }
 
     public List<QuestItem> GetItems()
     {
         var objects = new List<QuestItem>();
-        var count = Random.Range(1, _amount+1);
+        var count = Random.Range(1, _config.Amount+1);
 
         for (var i = 0; i < count; i++)
         {
-            objects.Add(_object);
+            objects.Add(_config.QuestItem);
         }
 
         Break();

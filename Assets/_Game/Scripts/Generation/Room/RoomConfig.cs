@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Game.Scripts.Room
+namespace _Game.Scripts.Generation.Room
 {
 [CreateAssetMenu(fileName = "RoomConfig", menuName = "Configs/Game/Room")]
 public class RoomConfig: ScriptableObject
