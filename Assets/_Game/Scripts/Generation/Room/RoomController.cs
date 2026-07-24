@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.Items.Box;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Generation.Room
 {
@@ -11,13 +12,14 @@ public class RoomController: MonoBehaviour
     [SerializeField] private Tilemap _wallMap;
     [SerializeField] private GameObject _boxPrefab;
 
-    [SerializeField] private Transform[] _objectPoints;
-    
+    private BoxItemConfig _boxItem;
+
     public void Build(BoxItemConfig boxItem) 
     {
+        _boxItem = boxItem;
+        
         SetFloor();
         SetWalls();
-        SetObjects(boxItem);
     }
 
     private void SetFloor()
@@ -87,11 +89,13 @@ public class RoomController: MonoBehaviour
     private void SetSimpleRange(Tilemap tilemap, TileBase tile)
     {
         var halfSize = _config.Size / 2;
-        for (var x = -halfSize; x < halfSize; x++)
+        for (var x = -halfSize; x < halfSize - 1; x++)
         {
-            for (var y = -halfSize; y < halfSize; y++)
+            for (var y = -halfSize; y < halfSize - 1; y++)
             {
-                tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                var pos = new Vector3Int(x, y, 0);
+                TrySetObject(pos);
+                tilemap.SetTile(pos, tile);
             }
         }
         tilemap.RefreshAllTiles();
@@ -100,24 +104,27 @@ public class RoomController: MonoBehaviour
     private void SetRandomRange(Tilemap tilemap, TileBase[] tiles)
     {
         var halfSize = _config.Size / 2;
-        for (var x = -halfSize; x < halfSize; x++)
+        for (var x = -halfSize; x < halfSize - 1; x++)
         {
-            for (var y = -halfSize; y < halfSize; y++)
+            for (var y = -halfSize; y < halfSize - 1; y++)
             {
                 var rand = Random.Range(0, tiles.Length);
-                tilemap.SetTile(new Vector3Int(x, y, 0), tiles[rand]);
+                var pos = new Vector3Int(x, y, 0);
+                TrySetObject(pos);
+                tilemap.SetTile(pos, tiles[rand]);
             }
         }
         tilemap.RefreshAllTiles();
     }
     
-    private void SetObjects(BoxItemConfig boxItem)
+    private void TrySetObject(Vector3Int cellPos)
     {
-        foreach (var point in _objectPoints)
-        {
-            var box = Instantiate(_boxPrefab, point.position, Quaternion.identity, transform).GetComponent<BoxItem>();
-            box.Construct(boxItem);
-        }
+        if (Random.Range(0, 100) >= _config.ChanceToSpawnObject) return;
+
+        var pos = _floorMap.GetCellCenterWorld(cellPos);
+
+        var box = Instantiate(_boxPrefab, pos, Quaternion.identity, transform).GetComponent<BoxItem>();
+        box.Construct(_boxItem);
     }
 }
 }
