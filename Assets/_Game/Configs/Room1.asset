@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a66f5f89da7450a876c2afe7380963d, type: 3}
+  m_Name: Room1
+  m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Room.RoomConfig
+  <FloorSprites>k__BackingField:
+  - {fileID: -5861162716494993739, guid: 1cdf3c2c342efbb4aab1a60fd3fcb04d, type: 3}
+  - {fileID: 1835818077639938530, guid: b1e99721da0d7964a88c387003383aca, type: 3}
+  <WallSprites>k__BackingField:
+  - {fileID: -7048751916847786614, guid: d4afb398985cf2546899d9ea741c9418, type: 3}
+  - {fileID: -7449415799620905647, guid: ab7f1841cd4a5d8478a5efb920a6c7d7, type: 3}
