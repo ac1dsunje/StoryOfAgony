@@ -41,11 +41,13 @@ public class PlayerController : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.E)) return;
         foreach (var box in _boxes)
         {
-            foreach (var item in box.GetItems())
+            var items = box.GetItems();
+            foreach (var item in items)
             {
                 _objects.Add(item);
             }
         }
+        _boxes.Clear();
     }
 
     private void FixedUpdate()
@@ -61,14 +63,14 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
-        
+        if(_boxes.Contains(boxItem)) return;
         _boxes.Add(boxItem);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
-        
+        if (boxItem.IsEmpty) return;
         _boxes.Remove(boxItem);
     }
 }

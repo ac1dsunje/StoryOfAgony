@@ -9,6 +9,8 @@ public class BoxItem : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     private BoxItemConfig _config;
 
+    public bool IsEmpty { get; private set; } = false;
+
     public void Construct (BoxItemConfig config)
     {
         _config = config;
@@ -17,6 +19,7 @@ public class BoxItem : MonoBehaviour
 
     public List<QuestItem> GetItems()
     {
+        IsEmpty = true;
         var objects = new List<QuestItem>();
         var count = Random.Range(1, _config.Amount+1);
 
@@ -24,15 +27,9 @@ public class BoxItem : MonoBehaviour
         {
             objects.Add(_config.QuestItem);
         }
-
-        Break();
         
+        gameObject.SetActive(false);
         return objects;
-    }
-
-    private void Break()
-    {
-        Destroy(gameObject);
     }
 }
 }
