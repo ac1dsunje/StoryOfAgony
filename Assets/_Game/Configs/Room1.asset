@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a66f5f89da7450a876c2afe7380963d, type: 3}
   m_Name: Room1
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Room.RoomConfig
-  <Size>k__BackingField: 30
+  <Size>k__BackingField: 10
   <FloorTiles>k__BackingField:
   - {fileID: 11400000, guid: 800aca9c65e5e43419bd385f180ccb85, type: 2}
   <WallTiles>k__BackingField:
