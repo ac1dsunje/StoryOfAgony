@@ -28,7 +28,7 @@ public class BuildingManager : MonoBehaviour
         
         var room = Instantiate(_roomPrefab, transform.position, Quaternion.identity, transform).GetComponent<RoomController>();
         var config = _availableBoxConfigs[Random.Range(0, _availableBoxConfigs.Count)];
-        room.SetObjects(config);
+        room.Build(config);
         _availableBoxConfigs.Remove(config);
     }
 }

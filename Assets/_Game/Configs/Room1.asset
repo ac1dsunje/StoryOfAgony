@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a66f5f89da7450a876c2afe7380963d, type: 3}
   m_Name: Room1
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Room.RoomConfig
-  <FloorSprites>k__BackingField:
-  - {fileID: -5861162716494993739, guid: 1cdf3c2c342efbb4aab1a60fd3fcb04d, type: 3}
-  - {fileID: 1835818077639938530, guid: b1e99721da0d7964a88c387003383aca, type: 3}
-  <WallSprites>k__BackingField:
-  - {fileID: -7048751916847786614, guid: d4afb398985cf2546899d9ea741c9418, type: 3}
-  - {fileID: -7449415799620905647, guid: ab7f1841cd4a5d8478a5efb920a6c7d7, type: 3}
+  <Size>k__BackingField: 10
+  <FloorTiles>k__BackingField:
+  - {fileID: 11400000, guid: 800aca9c65e5e43419bd385f180ccb85, type: 2}
+  <WallTiles>k__BackingField: []
