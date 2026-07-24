@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private List<QuestItem> _objects = new();
     
+    private readonly List<BoxItem> _boxes = new();
+    
     private void Awake() 
     {
         _rb  = GetComponent<Rigidbody2D>();
@@ -30,6 +32,20 @@ public class PlayerController : MonoBehaviour
     {
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
+
+        TryUnPackBoxes();
+    }
+
+    private void TryUnPackBoxes()
+    {
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+        foreach (var box in _boxes)
+        {
+            foreach (var item in box.GetItems())
+            {
+                _objects.Add(item);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -42,16 +58,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!collision.TryGetComponent<BoxItem>(out var breakableItem)) return;
-
-        if (!Input.GetKeyDown(KeyCode.E)) return;
+        if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
         
-        foreach (var item in breakableItem.GetItems())
-        {
-            _objects.Add(item);
-        }
+        _boxes.Add(boxItem);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
+        
+        _boxes.Remove(boxItem);
     }
 }
 }
