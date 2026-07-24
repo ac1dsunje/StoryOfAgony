@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private float _horizontalInput;
     private float _verticalInput;
+    
+    [SerializeField] private List<QuestItem> _objects = new();
     
     private void Awake() 
     {
@@ -34,6 +37,16 @@ public class PlayerController : MonoBehaviour
         if (_horizontalInput != 0)
         {
             _spriteRenderer.flipX = _horizontalInput > 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.TryGetComponent<BreakableItem>(out var breakableItem)) return;
+        
+        foreach (var item in breakableItem.GetItems())
+        {
+            _objects.Add(item);
         }
     }
 }
