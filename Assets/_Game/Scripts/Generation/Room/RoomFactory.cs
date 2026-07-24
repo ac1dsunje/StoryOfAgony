@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 namespace _Game.Scripts.Generation.Room
 {
-public class RoomGenerator: MonoBehaviour
+public class RoomFactory: MonoBehaviour
 {
     [SerializeField] private RoomConfig _roomConfig;
     [SerializeField] private Tilemap _floorMap;
