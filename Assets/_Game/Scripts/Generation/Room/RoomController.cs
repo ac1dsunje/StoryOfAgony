@@ -15,6 +15,7 @@ public class RoomController: MonoBehaviour
     [SerializeField] private ExitController _exit;
 
     private readonly List<BoxItemConfig> _availableBoxItems = new();
+    private readonly List<BoxItem> _boxes = new();
     private BoxItemConfig _currentBoxConfig;
 
     private FloorController _floor;
@@ -47,6 +48,14 @@ public class RoomController: MonoBehaviour
     {
         if (_availableBoxItems.Count > 0)
         {
+            if (_boxes.Count > 0)
+            {
+                foreach (var box in _boxes)
+                {
+                    box.TakeHit();
+                }
+                _boxes.Clear();
+            }
             _currentBoxConfig = _availableBoxItems[Random.Range(0, _availableBoxItems.Count)];
             _availableBoxItems.Remove(_currentBoxConfig);
         
@@ -68,6 +77,7 @@ public class RoomController: MonoBehaviour
 
         var box = Instantiate(_boxPrefab, pos, Quaternion.identity, transform).GetComponent<BoxItem>();
         box.Construct(_currentBoxConfig);
+        _boxes.Add(box);
     }
 
     private void OnDestroy()
