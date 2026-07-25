@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: grass_wall_iso
+  m_Name: wall sprite
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 3387230443747936418, guid: 2c5f19a39bafd284d9262fdb69934b66, type: 3}
+  m_Sprite: {fileID: 166236515460753627, guid: 3a17db2fb67c1974bbb711cf2c0486a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
