@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Game.Scripts.Generation.Room;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
@@ -10,16 +11,14 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private List<BoxItemConfig> _boxConfigs;
     [SerializeField] private GameObject _roomPrefab;
 
-    private void Awake()
-    {
-        CreateRoom();
-    }
+    public event Action<int, Sprite> OnQuotaChanged;
 
-    private void CreateRoom()
+    public void CreateRoom()
     {
         if (_boxConfigs.Count == 0) return;
         
         var room = Instantiate(_roomPrefab, transform.position, Quaternion.identity, transform).GetComponent<RoomController>();
+        room.OnQuotaChanged += OnQuotaChanged;
         room.Build(_boxConfigs);
     }
 }

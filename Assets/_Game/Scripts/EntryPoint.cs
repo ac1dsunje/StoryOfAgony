@@ -12,7 +12,8 @@ public class EntryPoint: MonoBehaviour
 
     private void Awake()
     {
-        _overlay.Construct(_player);
+        _overlay.Construct(_player, _buildingManager);
+        _buildingManager.CreateRoom();
     }
 }
 }
