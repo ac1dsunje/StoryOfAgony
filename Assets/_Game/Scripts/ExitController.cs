@@ -16,10 +16,12 @@ public class ExitController: MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            OnExit?.Invoke();
-        }
+        if (!other.gameObject.TryGetComponent<PlayerController>(out var player)) return;
+        
+        player.Clear();
+        OnExit?.Invoke();
+        
+        gameObject.SetActive(false);
     }
 }
 }

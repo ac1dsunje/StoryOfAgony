@@ -28,14 +28,11 @@ public class BoxItem : MonoBehaviour, IDamageAble
         {
             objects.Add(_config.QuestItem);
         }
-
-        TakeHit();
         return objects;
     }
 
     public void TakeHit()
     {
-        Destroy(gameObject, .3f);
         gameObject.SetActive(false);
     }
 }

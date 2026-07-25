@@ -48,14 +48,7 @@ public class RoomController: MonoBehaviour
     {
         if (_availableBoxItems.Count > 0)
         {
-            if (_boxes.Count > 0)
-            {
-                foreach (var box in _boxes)
-                {
-                    box.TakeHit();
-                }
-                _boxes.Clear();
-            }
+            ClearObjects();
             _currentBoxConfig = _availableBoxItems[Random.Range(0, _availableBoxItems.Count)];
             _availableBoxItems.Remove(_currentBoxConfig);
         
@@ -67,8 +60,19 @@ public class RoomController: MonoBehaviour
         }
         else
         {
+            ClearObjects();
             Debug.Log("No more items");
         }
+    }
+
+    private void ClearObjects()
+    {
+        if (_boxes.Count <= 0) return;
+        foreach (var box in _boxes)
+        {
+           box.TakeHit();
+        }
+        _boxes.Clear();
     }
     
     private void SetObject(Vector3Int cellPos)

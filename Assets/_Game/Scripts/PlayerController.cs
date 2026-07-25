@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour, IDamageAble
     
     private readonly List<BoxItem> _boxes = new();
 
-    public event Action<List<QuestItem>> OnItemAdded;
+    public event Action<List<QuestItem>> OnItemsChanged;
 
     private Tween _scaleTween;
     private Vector3 _defaultScale;
@@ -78,10 +78,11 @@ public class PlayerController : MonoBehaviour, IDamageAble
         foreach (var box in _boxes)
         {
             var items = box.GetItems();
+            box.TakeHit();
             foreach (var item in items)
             {
                 _objects.Add(item);
-                OnItemAdded?.Invoke(_objects);
+                OnItemsChanged?.Invoke(_objects);
             }
         }
         _boxes.Clear();
@@ -119,6 +120,12 @@ public class PlayerController : MonoBehaviour, IDamageAble
         if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
         if (boxItem.IsEmpty) return;
         _boxes.Remove(boxItem);
+    }
+
+    public void Clear()
+    {
+        _objects.Clear();
+        OnItemsChanged?.Invoke(_objects);
     }
     
     private void OnDestroy()
