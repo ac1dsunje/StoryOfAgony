@@ -35,7 +35,7 @@ public class BoxItem : MonoBehaviour, IDamageAble
 
     public void TakeHit()
     {
-        Debug.Log("Box got hit");
+        Destroy(gameObject, 2f);
         gameObject.SetActive(false);
     }
 }

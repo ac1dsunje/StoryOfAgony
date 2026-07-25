@@ -10,26 +10,17 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private List<BoxItemConfig> _boxConfigs;
     [SerializeField] private GameObject _roomPrefab;
 
-    private readonly List<BoxItemConfig> _availableBoxConfigs = new();
-
     private void Awake()
     {
-        foreach (var config in _boxConfigs)
-        {
-            _availableBoxConfigs.Add(config);
-        }
-
         CreateRoom();
     }
 
     private void CreateRoom()
     {
-        if (_availableBoxConfigs.Count == 0) return;
+        if (_boxConfigs.Count == 0) return;
         
         var room = Instantiate(_roomPrefab, transform.position, Quaternion.identity, transform).GetComponent<RoomController>();
-        var config = _availableBoxConfigs[Random.Range(0, _availableBoxConfigs.Count)];
-        room.Build(config);
-        _availableBoxConfigs.Remove(config);
+        room.Build(_boxConfigs);
     }
 }
 }

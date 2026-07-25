@@ -1,4 +1,6 @@
-﻿using _Game.Scripts.Items.Box;
+﻿using System.Collections.Generic;
+using _Game.Scripts.Items.Box;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,24 +12,53 @@ public class RoomController: MonoBehaviour
     [SerializeField] private Tilemap _floorMap;
     [SerializeField] private Tilemap[] _wallMaps;
     [SerializeField] private GameObject _boxPrefab;
+    [SerializeField] private ExitController _exit;
 
-    private BoxItemConfig _boxItem;
+    private readonly List<BoxItemConfig> _availableBoxItems = new();
+    private BoxItemConfig _currentBoxConfig;
 
     private FloorController _floor;
     private WallController _wall;
 
-    public void Build(BoxItemConfig boxItem) 
+    private float _countdown;
+
+    private void Awake()
     {
-        _boxItem = boxItem;
+        _exit.OnExit += Generate;
+    }
+
+    public void Build(List<BoxItemConfig> boxItems) 
+    {
+
+        foreach (var item in boxItems)
+        {
+            _availableBoxItems.Add(item);
+        }
         
         _floor = new FloorController(_config);
         _floor.OnSetObject += SetObject;
-        _floor.Set(_floorMap);
         
         _wall = new WallController(_config);
-        foreach (var wallMap in _wallMaps)
+        
+        Generate();
+    }
+
+    private void Generate()
+    {
+        if (_availableBoxItems.Count > 0)
         {
-            _wall.Set(wallMap);
+            _currentBoxConfig = _availableBoxItems[Random.Range(0, _availableBoxItems.Count)];
+            _availableBoxItems.Remove(_currentBoxConfig);
+        
+            _floor.Set(_floorMap);
+            foreach (var wallMap in _wallMaps)
+            {
+                _wall.Set(wallMap);
+            }
+        }
+        else
+        {
+            Debug.Log("No more items");
         }
     }
     
@@ -36,7 +67,7 @@ public class RoomController: MonoBehaviour
         var pos = _floorMap.GetCellCenterWorld(cellPos);
 
         var box = Instantiate(_boxPrefab, pos, Quaternion.identity, transform).GetComponent<BoxItem>();
-        box.Construct(_boxItem);
+        box.Construct(_currentBoxConfig);
     }
 
     private void OnDestroy()
