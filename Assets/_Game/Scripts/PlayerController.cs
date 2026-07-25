@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Game.Scripts.Items;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
+using DG.Tweening; 
 
 namespace _Game.Scripts
 {
@@ -20,15 +21,20 @@ public class PlayerController : MonoBehaviour
     private readonly List<BoxItem> _boxes = new();
 
     public event Action<List<QuestItem>> OnItemAdded;
+
+    private Tween _scaleTween;
+    private Vector3 _defaultScale;
     
     private void Awake() 
     {
-        _rb  = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
+        _defaultScale = transform.localScale;
     }
 
     private void Update()
     {
         ReadInput();
+        UpdateMovementAnimation();
     }
 
     private void ReadInput()
@@ -37,6 +43,31 @@ public class PlayerController : MonoBehaviour
         _verticalInput = Input.GetAxis("Vertical");
 
         TryUnPackBoxes();
+    }
+
+    private void UpdateMovementAnimation()
+    {
+        bool isMoving = Mathf.Abs(_horizontalInput) > 0.1f || Mathf.Abs(_verticalInput) > 0.1f;
+
+        if (isMoving)
+        {
+            if (_scaleTween == null || !_scaleTween.IsActive())
+            {
+                _scaleTween = transform.DOScale(new Vector3(1.3f, 0.7f, 1f), 0.15f)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutSine);
+            }
+        }
+        else
+        {
+            if (_scaleTween != null && _scaleTween.IsActive())
+            {
+                _scaleTween.Kill();
+                _scaleTween = null;
+                
+                transform.DOScale(_defaultScale, 0.25f).SetEase(Ease.OutBack);
+            }
+        }
     }
 
     private void TryUnPackBoxes()
@@ -76,6 +107,14 @@ public class PlayerController : MonoBehaviour
         if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
         if (boxItem.IsEmpty) return;
         _boxes.Remove(boxItem);
+    }
+    
+    private void OnDestroy()
+    {
+        if (_scaleTween != null && _scaleTween.IsActive())
+        {
+            _scaleTween.Kill();
+        }
     }
 }
 }
