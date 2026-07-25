@@ -1,7 +1,6 @@
 ﻿using _Game.Scripts.Items.Box;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Generation.Room
 {
@@ -9,7 +8,7 @@ public class RoomController: MonoBehaviour
 {
     [SerializeField] private RoomConfig _config;
     [SerializeField] private Tilemap _floorMap;
-    [SerializeField] private Tilemap _wallMap;
+    [SerializeField] private Tilemap[] _wallMaps;
     [SerializeField] private GameObject _boxPrefab;
 
     private BoxItemConfig _boxItem;
@@ -26,7 +25,10 @@ public class RoomController: MonoBehaviour
         _floor.Set(_floorMap);
         
         _wall = new WallController(_config);
-        _wall.Set(_wallMap);
+        foreach (var wallMap in _wallMaps)
+        {
+            _wall.Set(wallMap);
+        }
     }
     
     private void SetObject(Vector3Int cellPos)
