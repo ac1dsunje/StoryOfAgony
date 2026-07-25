@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using _Game.Scripts.Fire;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Items.Box
 {
-public class BoxItem : MonoBehaviour
+public class BoxItem : MonoBehaviour, IDamageAble
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     private BoxItemConfig _config;
@@ -27,9 +28,15 @@ public class BoxItem : MonoBehaviour
         {
             objects.Add(_config.QuestItem);
         }
-        
-        gameObject.SetActive(false);
+
+        TakeHit();
         return objects;
+    }
+
+    public void TakeHit()
+    {
+        Debug.Log("Box got hit");
+        gameObject.SetActive(false);
     }
 }
 }

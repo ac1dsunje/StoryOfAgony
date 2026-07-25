@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using _Game.Scripts.Fire;
 using _Game.Scripts.Items;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
-using DG.Tweening; 
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 namespace _Game.Scripts
 {
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageAble
 {
     [SerializeField] private float _speed;
     [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -98,8 +100,18 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
-        if(_boxes.Contains(boxItem)) return;
+        if (_boxes.Contains(boxItem)) return;
         _boxes.Add(boxItem);
+    }
+
+    public void TakeHit()
+    {
+        ReloadScene();
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnTriggerExit2D(Collider2D other)
