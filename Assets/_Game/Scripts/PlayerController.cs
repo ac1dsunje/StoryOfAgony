@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Game.Scripts.Items;
 using _Game.Scripts.Items.Box;
@@ -14,9 +15,11 @@ public class PlayerController : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
     
-    [SerializeField] private List<QuestItem> _objects = new();
+    private readonly List<QuestItem> _objects = new();
     
     private readonly List<BoxItem> _boxes = new();
+
+    public event Action<List<QuestItem>> OnItemAdded;
     
     private void Awake() 
     {
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
             foreach (var item in items)
             {
                 _objects.Add(item);
+                OnItemAdded?.Invoke(_objects);
             }
         }
         _boxes.Clear();
