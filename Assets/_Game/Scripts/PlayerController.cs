@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour, IDamageAble
     
     private readonly List<BoxItem> _boxes = new();
 
+    private BoxItem _nearestBox;
+
     public event Action<List<QuestItem>> OnItemsChanged;
 
     private Tween _scaleTween;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour, IDamageAble
     {
         ReadInput();
         UpdateMovementAnimation();
+        _nearestBox = GetNearestBox();
     }
 
     private void ReadInput()
@@ -74,18 +77,44 @@ public class PlayerController : MonoBehaviour, IDamageAble
 
     private void TryUnPackBoxes()
     {
-        if (!Input.GetKeyDown(KeyCode.E)) return;
+        if (!Input.GetKeyDown(KeyCode.E) || _boxes.Count == 0)
+            return;
+
+        var items = _nearestBox.GetItems();
+        _nearestBox.TakeHit();
+
+        foreach (var item in items)
+        {
+            _objects.Add(item);
+            OnItemsChanged?.Invoke(_objects);
+        }
+
+        _boxes.Remove(_nearestBox);
+    }
+
+    private BoxItem GetNearestBox()
+    {
+        BoxItem nearestBox = null;
+        var nearestDistance = float.MaxValue;
+
         foreach (var box in _boxes)
         {
-            var items = box.GetItems();
-            box.TakeHit();
-            foreach (var item in items)
-            {
-                _objects.Add(item);
-                OnItemsChanged?.Invoke(_objects);
-            }
+            var distance = Vector3.SqrMagnitude(
+                box.transform.position - transform.position);
+
+            if (!(distance < nearestDistance)) continue;
+            nearestDistance = distance;
+            nearestBox = box;
         }
-        _boxes.Clear();
+
+        nearestBox?.SetLighter(true);
+
+        if (nearestBox != _nearestBox)
+        {
+            _nearestBox?.SetLighter(false);
+        }
+        
+        return nearestBox;
     }
 
     private void FixedUpdate()
@@ -119,6 +148,7 @@ public class PlayerController : MonoBehaviour, IDamageAble
     {
         if (!other.TryGetComponent<BoxItem>(out var boxItem)) return;
         if (boxItem.IsEmpty) return;
+        boxItem.SetLighter(false);
         _boxes.Remove(boxItem);
     }
 

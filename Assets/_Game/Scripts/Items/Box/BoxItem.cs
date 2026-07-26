@@ -9,6 +9,7 @@ namespace _Game.Scripts.Items.Box
 public class BoxItem : MonoBehaviour, IDamageAble
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private GameObject _lighter;
     private BoxItemConfig _config;
 
     public event Action<int> OnBoxOpened;
@@ -32,6 +33,11 @@ public class BoxItem : MonoBehaviour, IDamageAble
         {
             _items.Add(_config.QuestItem);
         }
+    }
+
+    public void SetLighter(bool state)
+    {
+        _lighter.SetActive(state);
     }
 
     public Sprite GetSprite() => _config.QuestItem.Sprite;
