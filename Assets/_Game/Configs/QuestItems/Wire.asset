@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Wire
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.QuestItem
   <Name>k__BackingField: Wire
-  <Sprite>k__BackingField: {fileID: -2710373837574406569, guid: a221b093e3b573f4c9fec2ad4c38c9eb, type: 3}
+  <Sprite>k__BackingField: {fileID: -5718147441251158255, guid: c0796b1fb66dd0547994abae32851521, type: 3}

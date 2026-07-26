@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b159fd53bb74f4d8d17c07784931533, type: 3}
   m_Name: Computer
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Items.Box.BoxItemConfig
-  <Sprite>k__BackingField: {fileID: -9086548113580046952, guid: 4a2dd3108a0e6d14e8479af4a8f14ce9, type: 3}
+  <Sprite>k__BackingField: {fileID: -2416915375919670559, guid: 2081e8144d5492a46ac23addb4ddfa25, type: 3}
   <QuestItem>k__BackingField: {fileID: 11400000, guid: 6039975320a76e14db00c0cc4764edc2, type: 2}
   <Amount>k__BackingField: 3

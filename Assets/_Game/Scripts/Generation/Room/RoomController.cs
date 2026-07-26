@@ -145,6 +145,7 @@ public class RoomController: MonoBehaviour
 
     private void OnDestroy()
     {
+        StopAllCoroutines();
         _floor.OnSetObject -= SetObject;
         
         foreach (var box in _boxes)

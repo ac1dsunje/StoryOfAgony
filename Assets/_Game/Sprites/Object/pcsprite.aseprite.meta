@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a221b093e3b573f4c9fec2ad4c38c9eb
+guid: 2081e8144d5492a46ac23addb4ddfa25
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -36,7 +36,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 64
+    spritePixelsToUnits: 32
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639205381250953456
+  platformSettingsDirtyTick: 639206631438296682
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Dver
+  - name: pcsprite
     originalName: 
-    pivot: {x: 0.47945204, y: 0.5}
+    pivot: {x: 0.53846157, y: 0.53846157}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 73
-      height: 128
-    spriteID: e16aeaf7cd7cb0c4c8efa28217aaccf0
+      width: 13
+      height: 13
+    spriteID: 231b95fb7ade90a45aa45517b4590091
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -153,25 +153,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3874359049
+      value0: 2321008706
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Dver
+    name: pcsprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Dver
+    - name: pcsprite
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 29
-        y: 0
-        width: 73
-        height: 128
-      spriteId: e16aeaf7cd7cb0c4c8efa28217aaccf0
+        x: 1
+        y: 1
+        width: 13
+        height: 13
+      spriteId: 231b95fb7ade90a45aa45517b4590091
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -217,5 +217,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 128, y: 128}
-  previousTextureSize: {x: 128, y: 256}
+  canvasSize: {x: 16, y: 16}
+  previousTextureSize: {x: 32, y: 32}
