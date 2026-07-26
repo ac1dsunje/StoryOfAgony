@@ -6,10 +6,12 @@ namespace _Game.Scripts.Generation.Room
 public class WallController
 {
     private readonly RoomConfig _config;
+    private readonly TileController _tileController;
 
-    public WallController(RoomConfig config)
+    public WallController(RoomConfig config, TileController tileController)
     {
         _config = config;
+        _tileController = tileController;
     }
 
     public void Set(Tilemap tilemap)
@@ -40,6 +42,7 @@ public class WallController
             AddTile(tilemap, new Vector3Int(halfSize, y, 0), tile);
         }
         
+        _tileController.UpdateCollider(tilemap);
         tilemap.RefreshAllTiles();
     }
     
@@ -58,6 +61,7 @@ public class WallController
             AddTile(tilemap, new Vector3Int(halfSize, y, 0), tiles[rand]);
         }
         
+        _tileController.UpdateCollider(tilemap);
         tilemap.RefreshAllTiles();
     }
 

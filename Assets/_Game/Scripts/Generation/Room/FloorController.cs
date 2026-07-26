@@ -8,11 +8,13 @@ namespace _Game.Scripts.Generation.Room
 public class FloorController
 {
     private readonly RoomConfig _config;
+    private readonly TileController _tileController;
 
     public event Action<Vector3Int> OnSetObject;
 
-    public FloorController(RoomConfig config)
+    public FloorController(RoomConfig config, TileController tileController)
     {
+        _tileController = tileController;
         _config = config;
     }
     
@@ -38,7 +40,10 @@ public class FloorController
         {
             for (var y = -halfSize; y < halfSize - 1; y++)
             {
-                AddTile(tilemap, new Vector3Int(x, y, 0), tile);
+                var pos =  new Vector3Int(x, y, 0);
+                TrySetObject(pos);
+                _tileController.AddTile(tilemap, pos, tile);
+                _tileController.UpdateCollider(tilemap);
             }
         }
         tilemap.RefreshAllTiles();
@@ -52,18 +57,13 @@ public class FloorController
             for (var y = -halfSize; y < halfSize - 1; y++)
             {
                 var rand = Random.Range(0, tiles.Length);
-                
-                AddTile(tilemap, new Vector3Int(x, y, 0), tiles[rand]);
+                var pos = new Vector3Int(x, y, 0);
+                TrySetObject(pos);
+                _tileController.AddTile(tilemap, pos, tiles[rand]);
+                _tileController.UpdateCollider(tilemap);
             }
         }
         tilemap.RefreshAllTiles();
-    }
-
-    private void AddTile(Tilemap tileMap, Vector3Int cellPos, TileBase tile)
-    {
-        TrySetObject(cellPos);
-        tileMap.SetTile(cellPos, tile);
-        tileMap.SetColliderType(cellPos, Tile.ColliderType.Sprite);
     }
     
     private void TrySetObject(Vector3Int cellPos)

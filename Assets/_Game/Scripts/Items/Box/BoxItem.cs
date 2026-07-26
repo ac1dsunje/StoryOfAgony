@@ -10,6 +10,7 @@ public class BoxItem : MonoBehaviour, IDamageAble
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private GameObject _lighter;
+    [SerializeField] private AudioSource _pickupSound;
     private BoxItemConfig _config;
 
     public event Action<int> OnBoxOpened;
@@ -46,6 +47,7 @@ public class BoxItem : MonoBehaviour, IDamageAble
     {
         IsEmpty = true;
         OnBoxOpened?.Invoke(_items.Count);
+        _pickupSound.Play();
         return _items;
     }
 

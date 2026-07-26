@@ -14,8 +14,10 @@ public class RoomController: MonoBehaviour
     [SerializeField] private Tilemap _floorMap;
     [SerializeField] private Tilemap[] _wallMaps;
     [SerializeField] private GameObject _boxPrefab;
+    
     [SerializeField] private ExitController _exit;
-
+    [SerializeField] private AudioSource _exitAudioSource;
+    
     [SerializeField] private Tilemap _fireTileMap;
 
     private readonly List<BoxItemConfig> _availableBoxItems = new();
@@ -26,28 +28,32 @@ public class RoomController: MonoBehaviour
     private WallController _wall;
 
     public event Action<int, Sprite> OnQuotaChanged;
+    public event Action OnLevelsEnded;
 
     private float _countdown;
 
     private int _collectedAmount;
-    private int _quota;
+    [SerializeField] private int _quota;
+    
+    private TileController _tileController;
 
     private void Awake()
     {
         _exit.OnExit += Generate;
     }
 
-    public void Build(List<BoxItemConfig> boxItems) 
+    public void Build(List<BoxItemConfig> boxItems, TileController tileController) 
     {
+        _tileController  = tileController;
         foreach (var item in boxItems)
         {
             _availableBoxItems.Add(item);
         }
         
-        _floor = new FloorController(_config);
+        _floor = new FloorController(_config, _tileController);
         _floor.OnSetObject += SetObject;
         
-        _wall = new WallController(_config);
+        _wall = new WallController(_config, _tileController);
         
         Generate();
         StartCoroutine(FillFireFloor());
@@ -66,25 +72,20 @@ public class RoomController: MonoBehaviour
 
             for (var x = min; x <= max; x++)
             {
-                AddTile(_fireTileMap, new Vector3Int(x, max, 0), _config.FireTile);
-                AddTile(_fireTileMap, new Vector3Int(x, min, 0), _config.FireTile);
+                _tileController.AddTile(_fireTileMap, new Vector3Int(x, max, 0), _config.FireTile);
+                _tileController.AddTile(_fireTileMap, new Vector3Int(x, min, 0), _config.FireTile);
             }
 
             for (var y = min + 1; y < max; y++)
             {
-                AddTile(_fireTileMap, new Vector3Int(min, y, 0), _config.FireTile);
-                AddTile(_fireTileMap, new Vector3Int(max, y, 0), _config.FireTile);
+                _tileController.AddTile(_fireTileMap, new Vector3Int(min, y, 0), _config.FireTile);
+                _tileController.AddTile(_fireTileMap, new Vector3Int(max, y, 0), _config.FireTile);
             }
 
+            _tileController.UpdateCollider(_fireTileMap);
             layer++;
             _fireTileMap.RefreshAllTiles();
         }
-    }
-
-    private void AddTile(Tilemap tileMap, Vector3Int cellPos, TileBase tile)
-    {
-        tileMap.SetTile(cellPos, tile);
-        tileMap.SetColliderType(cellPos, Tile.ColliderType.Grid);
     }
 
     private void Generate()
@@ -110,7 +111,7 @@ public class RoomController: MonoBehaviour
         else
         {
             ClearObjects();
-            Debug.Log("No more items");
+            OnLevelsEnded?.Invoke();
         }
     }
 
@@ -145,6 +146,7 @@ public class RoomController: MonoBehaviour
         if (_collectedAmount >= _quota)
         {
             _exit.gameObject.SetActive(true);
+            _exitAudioSource.Play();
         }
     }
 
