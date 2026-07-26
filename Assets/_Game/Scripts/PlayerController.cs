@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour, IDamageAble
         if (!Input.GetKeyDown(KeyCode.E) || _boxes.Count == 0)
             return;
 
+        if (_nearestBox == null) return;
         var items = _nearestBox.GetItems();
         _nearestBox.TakeHit();
 
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour, IDamageAble
             OnItemsChanged?.Invoke(_objects);
         }
 
-        _boxes.Remove(_nearestBox);
+        _boxes.Remove(_nearestBox);  
     }
 
     private BoxItem GetNearestBox()
