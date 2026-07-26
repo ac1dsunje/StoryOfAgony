@@ -10,5 +10,12 @@ public class Fire: MonoBehaviour
         
         target.TakeHit();
     }
+    
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!other.TryGetComponent(out IDamageAble target)) return;
+        
+        target.TakeHit();
+    }
 }
 }
