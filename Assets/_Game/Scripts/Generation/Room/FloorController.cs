@@ -41,6 +41,7 @@ public class FloorController
                 var pos = new Vector3Int(x, y, 0);
                 TrySetObject(pos);
                 tilemap.SetTile(pos, tile);
+                tilemap.SetColliderType(pos, Tile.ColliderType.Grid);
             }
         }
         tilemap.RefreshAllTiles();
@@ -57,6 +58,7 @@ public class FloorController
                 var pos = new Vector3Int(x, y, 0);
                 TrySetObject(pos);
                 tilemap.SetTile(pos, tiles[rand]);
+                tilemap.SetColliderType(pos, Tile.ColliderType.Sprite);
             }
         }
         tilemap.RefreshAllTiles();

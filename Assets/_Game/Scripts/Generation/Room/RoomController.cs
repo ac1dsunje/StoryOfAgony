@@ -66,19 +66,25 @@ public class RoomController: MonoBehaviour
 
             for (var x = min; x <= max; x++)
             {
-                _fireTileMap.SetTile(new Vector3Int(x, min, 0), _config.FireTile);
-                _fireTileMap.SetTile(new Vector3Int(x, max, 0), _config.FireTile);
+                AddTile(_fireTileMap, new Vector3Int(x, max, 0), _config.FireTile);
+                AddTile(_fireTileMap, new Vector3Int(x, min, 0), _config.FireTile);
             }
 
             for (var y = min + 1; y < max; y++)
             {
-                _fireTileMap.SetTile(new Vector3Int(min, y, 0), _config.FireTile);
-                _fireTileMap.SetTile(new Vector3Int(max, y, 0), _config.FireTile);
+                AddTile(_fireTileMap, new Vector3Int(min, y, 0), _config.FireTile);
+                AddTile(_fireTileMap, new Vector3Int(max, y, 0), _config.FireTile);
             }
 
             layer++;
             _fireTileMap.RefreshAllTiles();
         }
+    }
+
+    private void AddTile(Tilemap tileMap, Vector3Int cellPos, TileBase tile)
+    {
+        tileMap.SetTile(cellPos, tile);
+        tileMap.SetColliderType(cellPos, Tile.ColliderType.Grid);
     }
 
     private void Generate()
