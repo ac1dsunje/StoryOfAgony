@@ -83,6 +83,8 @@ public class RoomController: MonoBehaviour
 
     private void Generate()
     {
+        _fireTileMap.ClearAllTiles();
+        _fireTileMap.RefreshAllTiles();
         _collectedAmount = 0;
         _quota = 0;
         if (_availableBoxItems.Count > 0)
@@ -96,6 +98,7 @@ public class RoomController: MonoBehaviour
             {
                 _wall.Set(wallMap);
             }
+            StartCoroutine(FillFireFloor());
         }
         else
         {
