@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0796b1fb66dd0547994abae32851521
+guid: 73fa3710d29c87e488da096532ccf2de
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -76,7 +76,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 0
+    defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -91,7 +91,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 0
+    defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639206636495886235
+  platformSettingsDirtyTick: 639206636461746214
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: pcprovoda
+  - name: skotchsprite
     originalName: 
-    pivot: {x: 0.5, y: 0.5714286}
+    pivot: {x: 0.5833334, y: -0.07692308}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 14
-      height: 7
-    spriteID: 83fc9df57adc18444876dceb942402b7
+      width: 12
+      height: 13
+    spriteID: af510bbf713465846a0bf09f5d374820
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -153,25 +153,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 3347581282
+      value0: 175788501
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: pcprovoda
+    name: skotchsprite
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: pcprovoda
+    - name: skotchsprite
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 1
-        y: 4
-        width: 14
-        height: 7
-      spriteId: 83fc9df57adc18444876dceb942402b7
+        y: 1
+        width: 12
+        height: 13
+      spriteId: af510bbf713465846a0bf09f5d374820
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -218,4 +218,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 16, y: 16}
-  previousTextureSize: {x: 32, y: 16}
+  previousTextureSize: {x: 32, y: 32}

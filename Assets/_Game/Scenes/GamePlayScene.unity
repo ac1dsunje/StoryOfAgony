@@ -771,6 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.BuildingManager
   _boxConfigs:
   - {fileID: 11400000, guid: f36aa31983dbd314db73b61290618831, type: 2}
+  - {fileID: 11400000, guid: f7af10afffbe4614f9c4e00194179230, type: 2}
   _roomPrefab: {fileID: 2337274423158298781, guid: 62368f1b32b9c664288254ce2af0c169, type: 3}
 --- !u!4 &1689173412
 Transform:
