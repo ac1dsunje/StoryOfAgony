@@ -38,10 +38,7 @@ public class FloorController
         {
             for (var y = -halfSize; y < halfSize - 1; y++)
             {
-                var pos = new Vector3Int(x, y, 0);
-                TrySetObject(pos);
-                tilemap.SetTile(pos, tile);
-                tilemap.SetColliderType(pos, Tile.ColliderType.Grid);
+                AddTile(tilemap, new Vector3Int(x, y, 0), tile);
             }
         }
         tilemap.RefreshAllTiles();
@@ -55,13 +52,18 @@ public class FloorController
             for (var y = -halfSize; y < halfSize - 1; y++)
             {
                 var rand = Random.Range(0, tiles.Length);
-                var pos = new Vector3Int(x, y, 0);
-                TrySetObject(pos);
-                tilemap.SetTile(pos, tiles[rand]);
-                tilemap.SetColliderType(pos, Tile.ColliderType.Sprite);
+                
+                AddTile(tilemap, new Vector3Int(x, y, 0), tiles[rand]);
             }
         }
         tilemap.RefreshAllTiles();
+    }
+
+    private void AddTile(Tilemap tileMap, Vector3Int cellPos, TileBase tile)
+    {
+        TrySetObject(cellPos);
+        tileMap.SetTile(cellPos, tile);
+        tileMap.SetColliderType(cellPos, Tile.ColliderType.Sprite);
     }
     
     private void TrySetObject(Vector3Int cellPos)
