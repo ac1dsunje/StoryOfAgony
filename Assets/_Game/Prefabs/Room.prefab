@@ -292,7 +292,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &392409288920844433
@@ -608,7 +608,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &8879752709026998613
@@ -874,7 +874,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &3942267228135481681
@@ -1153,7 +1153,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &8597303725648603144
@@ -1419,7 +1419,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &8490886107184230503
@@ -1685,7 +1685,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &5527821024458591701
@@ -1951,7 +1951,7 @@ TilemapCollider2D:
   m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
+  m_MaximumTileChangeCount: 250
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
 --- !u!50 &8082873764450750267

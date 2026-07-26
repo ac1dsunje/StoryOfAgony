@@ -83,6 +83,7 @@ public class RoomController: MonoBehaviour
 
     private void Generate()
     {
+        StopAllCoroutines();
         _fireTileMap.ClearAllTiles();
         _fireTileMap.RefreshAllTiles();
         _collectedAmount = 0;
