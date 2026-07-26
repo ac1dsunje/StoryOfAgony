@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class RoomController: MonoBehaviour
     [SerializeField] private Tilemap[] _wallMaps;
     [SerializeField] private GameObject _boxPrefab;
     [SerializeField] private ExitController _exit;
+
+    [SerializeField] private Tilemap _fireTileMap;
 
     private readonly List<BoxItemConfig> _availableBoxItems = new();
     private readonly List<BoxItem> _boxes = new();
@@ -47,6 +50,35 @@ public class RoomController: MonoBehaviour
         _wall = new WallController(_config);
         
         Generate();
+        StartCoroutine(FillFireFloor());
+    }
+
+    private IEnumerator FillFireFloor()
+    {
+        var layer = 0;
+
+        while (layer < _config.Size / 2)
+        {
+            yield return new WaitForSeconds(5f);
+
+            var min = - _config.Size / 2 + layer;
+            var max = _config.Size / 2 - 1 - layer;
+
+            for (var x = min; x <= max; x++)
+            {
+                _fireTileMap.SetTile(new Vector3Int(x, min, 0), _config.FireTile);
+                _fireTileMap.SetTile(new Vector3Int(x, max, 0), _config.FireTile);
+            }
+
+            for (var y = min + 1; y < max; y++)
+            {
+                _fireTileMap.SetTile(new Vector3Int(min, y, 0), _config.FireTile);
+                _fireTileMap.SetTile(new Vector3Int(max, y, 0), _config.FireTile);
+            }
+
+            layer++;
+            _fireTileMap.RefreshAllTiles();
+        }
     }
 
     private void Generate()

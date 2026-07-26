@@ -17,4 +17,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48a0ba5200d808747a074146f3aa57fa, type: 2}
   <WallTiles>k__BackingField:
   - {fileID: 11400000, guid: 774931f2936c16a4886919aa83e70fb5, type: 2}
+  <FireTile>k__BackingField: {fileID: 11400000, guid: 822e4ca6fed99f5459af9020011a9e80, type: 2}
   <ChanceToSpawnObject>k__BackingField: 10
