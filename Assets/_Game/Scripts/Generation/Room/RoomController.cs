@@ -80,8 +80,6 @@ public class RoomController: MonoBehaviour
                 _tileController.AddTile(_fireTileMap, new Vector3Int(min, y, 0), _config.FireTile);
                 _tileController.AddTile(_fireTileMap, new Vector3Int(max, y, 0), _config.FireTile);
             }
-
-            _tileController.UpdateCollider(_fireTileMap);
             layer++;
             _fireTileMap.RefreshAllTiles();
         }

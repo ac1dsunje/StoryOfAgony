@@ -41,8 +41,6 @@ public class WallController
         {
             AddTile(tilemap, new Vector3Int(halfSize, y, 0), tile);
         }
-        
-        _tileController.UpdateCollider(tilemap);
         tilemap.RefreshAllTiles();
     }
     
@@ -60,8 +58,6 @@ public class WallController
             var rand = Random.Range(0, tiles.Length);
             AddTile(tilemap, new Vector3Int(halfSize, y, 0), tiles[rand]);
         }
-        
-        _tileController.UpdateCollider(tilemap);
         tilemap.RefreshAllTiles();
     }
 

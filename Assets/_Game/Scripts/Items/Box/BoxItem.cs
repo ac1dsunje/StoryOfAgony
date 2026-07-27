@@ -11,14 +11,13 @@ public class BoxItem : MonoBehaviour, IDamageAble
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private GameObject _lighter;
     [SerializeField] private AudioSource _pickupSound;
-    private BoxItemConfig _config;
-
-    public event Action<int> OnBoxOpened;
-    public event Action<BoxItem> OnBoxTookHit;
 
     public bool IsEmpty { get; private set; }
+    public event Action<int> OnBoxOpened;
+    public event Action<BoxItem> OnBoxTookHit;
     
     private readonly List<QuestItem> _items = new();
+    private BoxItemConfig _config;
 
     public void Construct (BoxItemConfig config)
     {

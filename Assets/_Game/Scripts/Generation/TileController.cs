@@ -10,11 +10,5 @@ public class TileController
         tilemap.SetTile(cellPos, tile);
         tilemap.SetColliderType(cellPos, Tile.ColliderType.Sprite);
     }
-
-    public void UpdateCollider(Tilemap tilemap)
-    {
-        var collider = tilemap.GetComponent<TilemapCollider2D>();
-        collider.ProcessTilemapChanges();
-    }
 }
 }
