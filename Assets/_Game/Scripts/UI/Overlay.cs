@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Generation;
 using _Game.Scripts.Items;
+using _Game.Scripts.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

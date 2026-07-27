@@ -4,10 +4,8 @@ using _Game.Scripts.Fire;
 using _Game.Scripts.Items;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
-using DG.Tweening;
-using UnityEngine.SceneManagement;
 
-namespace _Game.Scripts
+namespace _Game.Scripts.Player
 {
 public class PlayerController : MonoBehaviour, IDamageAble
 {
@@ -23,22 +21,20 @@ public class PlayerController : MonoBehaviour, IDamageAble
     private readonly List<BoxItem> _boxes = new();
 
     private BoxItem _nearestBox;
+    private bool _isMoving;
 
     public event Action<List<QuestItem>> OnItemsChanged;
-
-    private Tween _scaleTween;
-    private Vector3 _defaultScale;
+    public event Action OnDeath;
+    public event Action<bool> OnMovingChanged;
     
     private void Awake() 
     {
         _rb = GetComponent<Rigidbody2D>();
-        _defaultScale = transform.localScale;
     }
 
     private void Update()
     {
         ReadInput();
-        UpdateMovementAnimation();
         _nearestBox = GetNearestBox();
     }
 
@@ -48,31 +44,6 @@ public class PlayerController : MonoBehaviour, IDamageAble
         _verticalInput = Input.GetAxis("Vertical");
 
         TryUnPackBoxes();
-    }
-
-    private void UpdateMovementAnimation()
-    {
-        bool isMoving = Mathf.Abs(_horizontalInput) > 0.1f || Mathf.Abs(_verticalInput) > 0.1f;
-
-        if (isMoving)
-        {
-            if (_scaleTween == null || !_scaleTween.IsActive())
-            {
-                _scaleTween = transform.DOScale(new Vector3(1.3f, 0.7f, 1f), 0.15f)
-                    .SetLoops(-1, LoopType.Yoyo)
-                    .SetEase(Ease.InOutSine);
-            }
-        }
-        else
-        {
-            if (_scaleTween != null && _scaleTween.IsActive())
-            {
-                _scaleTween.Kill();
-                _scaleTween = null;
-                
-                transform.DOScale(_defaultScale, 0.25f).SetEase(Ease.OutBack);
-            }
-        }
     }
 
     private void TryUnPackBoxes()
@@ -120,11 +91,24 @@ public class PlayerController : MonoBehaviour, IDamageAble
 
     private void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         _rb.linearVelocity = new Vector2(_horizontalInput * _speed, _verticalInput * _speed);
 
         if (_horizontalInput != 0)
         {
             _spriteRenderer.flipX = _horizontalInput > 0;
+        }
+
+        var isMoving = Mathf.Abs(_rb.linearVelocity.x) > 0.1f || Mathf.Abs(_rb.linearVelocity.y) > 0.1f;
+        
+        if (isMoving != _isMoving)
+        {
+            _isMoving = isMoving;
+            OnMovingChanged?.Invoke(_isMoving);
         }
     }
 
@@ -137,12 +121,7 @@ public class PlayerController : MonoBehaviour, IDamageAble
 
     public void TakeHit()
     {
-        ReloadScene();
-    }
-
-    private void ReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        OnDeath?.Invoke();
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -157,14 +136,6 @@ public class PlayerController : MonoBehaviour, IDamageAble
     {
         _objects.Clear();
         OnItemsChanged?.Invoke(_objects);
-    }
-    
-    private void OnDestroy()
-    {
-        if (_scaleTween != null && _scaleTween.IsActive())
-        {
-            _scaleTween.Kill();
-        }
     }
 }
 }

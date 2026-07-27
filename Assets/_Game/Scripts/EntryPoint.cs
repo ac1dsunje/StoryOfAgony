@@ -1,4 +1,6 @@
-﻿using _Game.Scripts.Generation;
+﻿using System;
+using _Game.Scripts.Generation;
+using _Game.Scripts.Player;
 using _Game.Scripts.UI;
 using UnityEngine;
 
@@ -10,12 +12,23 @@ public class EntryPoint: MonoBehaviour
     [SerializeField] private BuildingManager _buildingManager;
     [SerializeField] private Overlay _overlay;
     [SerializeField] private WinScreen _winScreen;
+    
+    private SceneLoader _sceneLoader;
+    private PlayerAnimator _playerAnimator;
 
     private void Awake()
     {
+        _sceneLoader = new SceneLoader(_player);
+        _playerAnimator = new PlayerAnimator(_player);
         _overlay.Construct(_player, _buildingManager);
         _winScreen.Construct(_buildingManager);
         _buildingManager.CreateRoom();
+    }
+
+    private void OnDestroy()
+    {
+        _playerAnimator.Dispose();
+        _sceneLoader.Dispose();
     }
 }
 }
