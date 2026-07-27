@@ -21,12 +21,17 @@ public class FireController: MonoBehaviour
         _tileController = tileController;
     }
 
-    public void Set(RoomConfig config)
+    public void SpreadFire(RoomConfig config)
+    {
+        Refresh();
+        StartCoroutine(FillFloor(config));
+    }
+
+    private void Refresh()
     {
         StopAllCoroutines();
         _tilemap.ClearAllTiles();
         _tilemap.RefreshAllTiles();
-        StartCoroutine(FillFloor(config));
     }
 
     private IEnumerator FillFloor(RoomConfig config)

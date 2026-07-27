@@ -69,7 +69,7 @@ public class RoomController: MonoBehaviour
             {
                 _wall.Set(wallMap);
             }
-            _fire.Set(_config);
+            _fire.SpreadFire(_config);
         }
         else
         {
