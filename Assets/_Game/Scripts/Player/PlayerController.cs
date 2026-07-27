@@ -16,9 +16,8 @@ public class PlayerController : MonoBehaviour, IDamageAble
     private float _horizontalInput;
     private float _verticalInput;
     
-    private readonly List<QuestItem> _objects = new();
-    
     private readonly List<BoxItem> _boxes = new();
+    private readonly List<QuestItem> _items = new();
 
     private BoxItem _nearestBox;
     private bool _isMoving;
@@ -57,8 +56,8 @@ public class PlayerController : MonoBehaviour, IDamageAble
 
         foreach (var item in items)
         {
-            _objects.Add(item);
-            OnItemsChanged?.Invoke(_objects);
+            _items.Add(item);
+            OnItemsChanged?.Invoke(_items);
         }
 
         _boxes.Remove(_nearestBox);  
@@ -134,8 +133,8 @@ public class PlayerController : MonoBehaviour, IDamageAble
 
     public void Clear()
     {
-        _objects.Clear();
-        OnItemsChanged?.Invoke(_objects);
+        _items.Clear();
+        OnItemsChanged?.Invoke(_items);
     }
 }
 }
