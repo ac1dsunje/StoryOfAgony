@@ -5,13 +5,15 @@ namespace _Game.Scripts
 {
 public class ExitController: MonoBehaviour
 {
-    private Animator _animator;
+    [SerializeField] private AnimationClip _creatingAnimation;
+
+    [SerializeField] private Animator _animator;
+    
     public event Action OnExit;
     
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _animator.Play("Creating");
+        _animator.Play(_creatingAnimation.name);
     }
 
     private void OnCollisionEnter2D(Collision2D other)

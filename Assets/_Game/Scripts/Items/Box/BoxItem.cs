@@ -16,7 +16,7 @@ public class BoxItem : MonoBehaviour, IDamageAble
     public event Action<int> OnBoxOpened;
     public event Action<BoxItem> OnBoxTookHit;
 
-    public bool IsEmpty { get; private set; } = false;
+    public bool IsEmpty { get; private set; }
     
     private readonly List<QuestItem> _items = new();
 

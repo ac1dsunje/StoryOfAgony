@@ -16,7 +16,6 @@ public class RoomController: MonoBehaviour
     [SerializeField] private GameObject _boxPrefab;
     
     [SerializeField] private ExitController _exit;
-    [SerializeField] private AudioSource _exitAudioSource;
     
     [SerializeField] private Tilemap _fireTileMap;
 
@@ -146,7 +145,6 @@ public class RoomController: MonoBehaviour
         if (_collectedAmount >= _quota)
         {
             _exit.gameObject.SetActive(true);
-            _exitAudioSource.Play();
         }
     }
 
