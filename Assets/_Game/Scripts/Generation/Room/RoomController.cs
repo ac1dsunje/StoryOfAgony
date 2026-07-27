@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
@@ -25,6 +24,7 @@ public class RoomController: MonoBehaviour
 
     private FloorController _floor;
     private WallController _wall;
+    private FireController _fire;
 
     public event Action<int, Sprite> OnQuotaChanged;
     public event Action OnLevelsEnded;
@@ -36,11 +36,6 @@ public class RoomController: MonoBehaviour
     
     private TileController _tileController;
 
-    private void Awake()
-    {
-        _exit.OnExit += Generate;
-    }
-
     public void Build(List<BoxItemConfig> boxItems, TileController tileController) 
     {
         _tileController  = tileController;
@@ -50,46 +45,17 @@ public class RoomController: MonoBehaviour
         }
         
         _floor = new FloorController(_config, _tileController);
-        _floor.OnSetObject += SetObject;
+        _floor.OnSetBox += SetBox;
         
         _wall = new WallController(_config, _tileController);
+        _fire = new FireController(_config, _tileController);
         
         Generate();
-        StartCoroutine(FillFireFloor());
-    }
-
-    private IEnumerator FillFireFloor()
-    {
-        var layer = 0;
-
-        while (layer < _config.Size / 2)
-        {
-            yield return new WaitForSeconds(5f);
-
-            var min = - _config.Size / 2 + layer;
-            var max = _config.Size / 2 - 1 - layer;
-
-            for (var x = min; x <= max; x++)
-            {
-                _tileController.AddTile(_fireTileMap, new Vector3Int(x, max, 0), _config.FireTile);
-                _tileController.AddTile(_fireTileMap, new Vector3Int(x, min, 0), _config.FireTile);
-            }
-
-            for (var y = min + 1; y < max; y++)
-            {
-                _tileController.AddTile(_fireTileMap, new Vector3Int(min, y, 0), _config.FireTile);
-                _tileController.AddTile(_fireTileMap, new Vector3Int(max, y, 0), _config.FireTile);
-            }
-            layer++;
-            _fireTileMap.RefreshAllTiles();
-        }
     }
 
     private void Generate()
     {
         StopAllCoroutines();
-        _fireTileMap.ClearAllTiles();
-        _fireTileMap.RefreshAllTiles();
         _collectedAmount = 0;
         _quota = 0;
         if (_availableBoxItems.Count > 0)
@@ -103,7 +69,7 @@ public class RoomController: MonoBehaviour
             {
                 _wall.Set(wallMap);
             }
-            StartCoroutine(FillFireFloor());
+            StartCoroutine(_fire.FillFloor(_fireTileMap));
         }
         else
         {
@@ -122,7 +88,7 @@ public class RoomController: MonoBehaviour
         _boxes.Clear();
     }
     
-    private void SetObject(Vector3Int cellPos)
+    private void SetBox(Vector3Int cellPos)
     {
         var pos = _floorMap.GetCellCenterWorld(cellPos);
 
@@ -132,7 +98,7 @@ public class RoomController: MonoBehaviour
         box.OnBoxTookHit += OnBoxTookHit;
         _boxes.Add(box);
 
-        _quota += 1;
+        _quota++;
         
         OnQuotaChanged?.Invoke(_quota, box.GetSprite());
     }
@@ -140,10 +106,14 @@ public class RoomController: MonoBehaviour
     private void OnBoxOpened(int amount)
     {
         _collectedAmount += amount;
-        if (_collectedAmount >= _quota)
-        {
-            _exit.gameObject.SetActive(true);
-        }
+        CheckQuota();
+    }
+
+    private void CheckQuota()
+    {
+        if (_collectedAmount < _quota) return;
+        _exit.gameObject.SetActive(true);
+        _exit.OnExit += Generate;
     }
 
     private void OnBoxTookHit(BoxItem box)
@@ -154,7 +124,7 @@ public class RoomController: MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
-        _floor.OnSetObject -= SetObject;
+        _floor.OnSetBox -= SetBox;
         
         foreach (var box in _boxes)
         {

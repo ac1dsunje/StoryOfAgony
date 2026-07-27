@@ -10,6 +10,6 @@ public class RoomConfig: ScriptableObject
     [field: SerializeField] public TileBase[] FloorTiles { get; private set; }
     [field: SerializeField] public TileBase[] WallTiles { get; private set; }
     [field: SerializeField] public TileBase FireTile { get; private set; }
-    [field: SerializeField] public int ChanceToSpawnObject { get; private set; }
+    [field: SerializeField] public int ChanceToSpawnBox { get; private set; } = 10;
 }
 }

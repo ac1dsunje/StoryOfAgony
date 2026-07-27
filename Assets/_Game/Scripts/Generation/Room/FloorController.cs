@@ -10,7 +10,7 @@ public class FloorController
     private readonly RoomConfig _config;
     private readonly TileController _tileController;
 
-    public event Action<Vector3Int> OnSetObject;
+    public event Action<Vector3Int> OnSetBox;
 
     public FloorController(RoomConfig config, TileController tileController)
     {
@@ -41,7 +41,7 @@ public class FloorController
             for (var y = -halfSize; y < halfSize - 1; y++)
             {
                 var pos =  new Vector3Int(x, y, 0);
-                TrySetObject(pos);
+                TrySetBox(pos);
                 _tileController.AddTile(tilemap, pos, tile);
             }
         }
@@ -57,18 +57,18 @@ public class FloorController
             {
                 var rand = Random.Range(0, tiles.Length);
                 var pos = new Vector3Int(x, y, 0);
-                TrySetObject(pos);
+                TrySetBox(pos);
                 _tileController.AddTile(tilemap, pos, tiles[rand]);
             }
         }
         tilemap.RefreshAllTiles();
     }
     
-    private void TrySetObject(Vector3Int cellPos)
+    private void TrySetBox(Vector3Int cellPos)
     {
-        if (Random.Range(0, 100) >= _config.ChanceToSpawnObject) return;
+        if (Random.Range(0, 100) >= _config.ChanceToSpawnBox) return;
 
-        OnSetObject?.Invoke(cellPos);
+        OnSetBox?.Invoke(cellPos);
     }
 }
 }
