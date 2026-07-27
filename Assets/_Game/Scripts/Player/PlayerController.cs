@@ -41,26 +41,11 @@ public class PlayerController : MonoBehaviour, IDamageAble
     {
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
-
-        TryUnPackBoxes();
-    }
-
-    private void TryUnPackBoxes()
-    {
-        if (!Input.GetKeyDown(KeyCode.E) || _boxes.Count == 0)
-            return;
-
-        if (_nearestBox == null) return;
-        var items = _nearestBox.GetItems();
-        _nearestBox.TakeHit();
-
-        foreach (var item in items)
+        
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            _items.Add(item);
-            OnItemsChanged?.Invoke(_items);
+            TryUnpack();
         }
-
-        _boxes.Remove(_nearestBox);  
     }
 
     private BoxItem GetNearestBox()
@@ -86,6 +71,21 @@ public class PlayerController : MonoBehaviour, IDamageAble
         }
         
         return nearestBox;
+    }
+
+    private void TryUnpack()
+    {
+        if (!_nearestBox) return;
+        var items = _nearestBox.GetItems();
+        _nearestBox.TakeHit();
+
+        foreach (var item in items)
+        {
+            _items.Add(item);
+            OnItemsChanged?.Invoke(_items);
+        }
+
+        _boxes.Remove(_nearestBox);
     }
 
     private void FixedUpdate()

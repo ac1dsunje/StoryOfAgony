@@ -45,7 +45,6 @@ public class FloorController
                 _tileController.AddTile(tilemap, pos, tile);
             }
         }
-        tilemap.RefreshAllTiles();
     }
 
     private void SetRandomRange(Tilemap tilemap, TileBase[] tiles)
@@ -61,7 +60,6 @@ public class FloorController
                 _tileController.AddTile(tilemap, pos, tiles[rand]);
             }
         }
-        tilemap.RefreshAllTiles();
     }
     
     private void TrySetBox(Vector3Int cellPos)

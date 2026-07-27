@@ -34,14 +34,13 @@ public class WallController
         var halfSize = _config.Size / 2;
         for (var x = -halfSize + 1; x <= halfSize; x++)
         {
-            AddTile(tilemap, new Vector3Int(x, halfSize, 0), tile);
+            _tileController.AddTile(tilemap, new Vector3Int(x, halfSize, 0), tile);
         }
         
         for (var y = -halfSize + 1; y < halfSize; y++)
         {
-            AddTile(tilemap, new Vector3Int(halfSize, y, 0), tile);
+            _tileController.AddTile(tilemap, new Vector3Int(halfSize, y, 0), tile);
         }
-        tilemap.RefreshAllTiles();
     }
     
     private void SetRandomLine(Tilemap tilemap, TileBase[] tiles)
@@ -50,20 +49,14 @@ public class WallController
         for (var x = -halfSize + 1; x <= halfSize; x++)
         {
             var rand = Random.Range(0, tiles.Length);
-            AddTile(tilemap, new Vector3Int(x, halfSize, 0), tiles[rand]);
+            _tileController.AddTile(tilemap, new Vector3Int(x, halfSize, 0), tiles[rand]);
         }
         
         for (var y = -halfSize + 1; y < halfSize; y++)
         {
             var rand = Random.Range(0, tiles.Length);
-            AddTile(tilemap, new Vector3Int(halfSize, y, 0), tiles[rand]);
+            _tileController.AddTile(tilemap, new Vector3Int(halfSize, y, 0), tiles[rand]);
         }
-        tilemap.RefreshAllTiles();
-    }
-
-    private void AddTile(Tilemap tilemap, Vector3Int cellPos, TileBase tile)
-    {
-        tilemap.SetTile(cellPos, tile);
     }
 }
 }

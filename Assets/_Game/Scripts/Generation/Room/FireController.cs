@@ -41,7 +41,6 @@ public class FireController
                 _tileController.AddTile(tileMap, new Vector3Int(max, y, 0), _config.FireTile);
             }
             layer++;
-            tileMap.RefreshAllTiles();
         }
     }
 }
