@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Game.Scripts.Fire;
 using _Game.Scripts.Items.Box;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,7 +17,7 @@ public class RoomController: MonoBehaviour
     
     [SerializeField] private ExitController _exit;
     
-    [SerializeField] private Tilemap _fireTileMap;
+    [SerializeField] private FireController _fire;
 
     private readonly List<BoxItemConfig> _availableBoxItems = new();
     private readonly List<BoxItem> _boxes = new();
@@ -24,7 +25,6 @@ public class RoomController: MonoBehaviour
 
     private FloorController _floor;
     private WallController _wall;
-    private FireController _fire;
 
     public event Action<int, Sprite> OnQuotaChanged;
     public event Action OnLevelsEnded;
@@ -48,7 +48,7 @@ public class RoomController: MonoBehaviour
         _floor.OnSetBox += SetBox;
         
         _wall = new WallController(_config, _tileController);
-        _fire = new FireController(_config, _tileController);
+        _fire.Construct(_tileController);
         
         Generate();
     }
@@ -69,7 +69,7 @@ public class RoomController: MonoBehaviour
             {
                 _wall.Set(wallMap);
             }
-            StartCoroutine(_fire.FillFloor(_fireTileMap));
+            _fire.Set(_config);
         }
         else
         {
@@ -123,7 +123,6 @@ public class RoomController: MonoBehaviour
 
     private void OnDestroy()
     {
-        StopAllCoroutines();
         _floor.OnSetBox -= SetBox;
         
         foreach (var box in _boxes)
